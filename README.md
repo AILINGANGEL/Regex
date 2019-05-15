@@ -53,6 +53,29 @@ e.g. /\\$/匹配字符$;  / \\\ /匹配字符\
 - 在[]中上述的特殊字符是自己的字面量意思，不需要转义
 e.g. /[\$]/ 匹配\或者$
 
+### JS中涉及到regex的函数
+
+> Regex对象自带的方法
+- exec: 返回null或者数组; result[0]表示捕获到的字符串, result[1...n]表示括号中的分组捕获
+```js
+var re = /quick\s(brown).+?(jumps)/ig;
+var result = re.exec('The Quick Brown Fox Jumps Over The Lazy Dog');
+// ["Quick Brown Fox Jumps", "Brown", "Jumps", index: 4, input: "The Quick Brown Fox Jumps Over The Lazy Dog", groups: undefined]
+```
+- test: 判断某个字符串是否匹配这个正则表达式
+
+```js
+/abc/.test('test') // true
+```
+> String.prototype.replace
+- 第一个参数是一个正则表达式，或者一个要被替换的字符串；第二个参数可以是替换的字符串或者函数;
+- 第二个参数是函数的情况，参数依次是match(匹配到的字符串), P1...Pn表示匹配到的分组， offset匹配到的子串在原始位置的偏移量, str原始字符串;参见第6题
+- 第二个参数是字符串的时候，也可以是用$n来指定分组匹配的结果
+
+举例: 使用replace来交换两个字符串的位置
+```js
+foo bar".replace(/(\w+)\s+(\w+)/, "$2 $1")
+```
 
 ### 练习
 
@@ -124,7 +147,7 @@ console.log(trim('   this is a test  '));
 - /^#\w+$/ 匹配id
 - /^\.\w+$/ 匹配类名
 - /^\w+$/ 匹配标签
-- /^#?(\.)?\w+$/ 
+- /^(#)?(\.)?(\w+)$/ : 利用分组，这样可以从result[1] result[2] result[3]中拿到匹配结果 
 
 
 ### 6. 以下函数的作用？空白处填写?
@@ -151,7 +174,7 @@ console.log(trim('   this is a test  '));
 })();
 ```
 - var arg = arguments; 获取输入的所有参数
-- replace的第一个参数填写一个正则表达式 /\{\d\}/g
+- replace的第一个参数填写一个正则表达式 /\{(\d)\}/g: \d需要用括号括起来表示分组，这样在replace第二个函数中的第二个参数才表示匹配到的分组结果
 - 作用是将字符串中的类似{0}的字符串替换成输入的内容，返回格式化后的字符串
 
 ### 7. 匹配邮箱的正则表达式
