@@ -65,7 +65,7 @@ var result = re.exec('The Quick Brown Fox Jumps Over The Lazy Dog');
 - test: 判断某个字符串是否匹配这个正则表达式
 
 ```js
-/abc/.test('test') // true
+/abc/.test('test') // false
 ```
 > String.prototype.replace
 - 第一个参数是一个正则表达式，或者一个要被替换的字符串；第二个参数可以是替换的字符串或者函数;
